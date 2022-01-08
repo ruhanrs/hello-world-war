@@ -3,7 +3,7 @@
 <title>revolution 2020!</title>
 </head>
 <body>
-	<h1>Hello 2022!</h1>
+	<h1>welcome to Devops class</h1>
 	<p>
 		It is now
 		<%= new java.util.Date() %></p>

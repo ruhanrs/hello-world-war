@@ -2,7 +2,7 @@
 <head>
 <title>revolution 2020!</title>
 </head>
-<body>
+<body style="background-color:powderblue;">
 	<h1>welcome to Devops class</h1>
 	<p>
 		It is now

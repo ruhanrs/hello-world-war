@@ -1,44 +1,55 @@
 pipeline {
 	agent none
-	stages {
+environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub_id')
+	}
+    stages {
 	    
        stage('checkout') {
 	       agent { label 'mvn' }
             steps {
                 sh 'sudo rm -rf hello-world-war'
-	sh 'git clone https://github.com/ruhanrs/hello-world-war.git'	
+	sh 'git clone  https://github.com/ruhanrs/hello-world-war.git'	
               }
         }
 	 stage('build') {
 		 agent { label 'mvn' }
-	
             steps {
                 dir('hello-world-war'){
                   sh 'pwd'
                 sh 'ls'
             
-                sh 'docker build -t tomcat:ver1.1 .'  
-			
+                sh 'docker build -t tomcat:1.0 .'  
                 }
-	    }
+            }
 	 }
-                stage('push') {
-			agent { label 'mvn' }
-	
-            steps {
-		    sh 'ls'
-            sh 'docker tag tomcat:ver1.1 ruhanrs/myubuntu:1.0'
-		    sh 'docker images'
-                sh 'docker push ruhanrs/myubuntu:1.0'
-         }
-	 }
-		 stage('deploy'){
-		 agent { label 'mvn2' }
+	 stage('deploy'){
+		 agent { label 'mvn' }
 	     steps{
 	        sh 'docker rm -f mytomcat'
-	         sh 'docker run -d --name mytomcat -p 7777:8080 ruhanrs/myubuntu:1.0'
+	         sh 'docker run -d --name mytomcat -p 8888:8080 tomcat:1.0'
 	     }
 	 }
-	
+		stage('Login') {
+			agent { label 'mvn' }
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+	stage('Push') {
+		agent { label 'mvn' }
+
+			steps {
+			    sh 'docker tag tomcat:1.0 ruhanrs/myubuntu:1.0'
+				sh 'docker push ruhanrs/myubuntu:1.0'
+			}
+		}
+stage('pull image'){
+    agent { label 'mvn2' }
+        steps{
+            sh 'docker rm -f mytomcat'
+            sh 'docker run -d --name mytomcat -p 7100:8080 ruhanrs/myubuntu:1.0'
+        }
+    }
     }
 }

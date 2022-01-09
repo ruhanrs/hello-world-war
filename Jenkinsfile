@@ -2,7 +2,7 @@ pipeline {
 	agent { label 'mvn' }
     stages {
 	    
-       stage('checkout') {
+       stage('checkout1') {
             steps {
                 sh 'sudo rm -rf hello-world-war'
 	sh 'git clone https://github.com/ruhanrs/hello-world-war.git'	

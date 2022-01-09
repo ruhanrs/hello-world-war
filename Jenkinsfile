@@ -1,8 +1,5 @@
 pipeline {
 	agent none
-environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub_id')
-	}
     stages {
 	    
        stage('checkout') {
@@ -30,12 +27,7 @@ environment {
 	         sh 'docker run -d --name mytomcat -p 8888:8080 tomcat:1.0'
 	     }
 	 }
-		stage('Login') {
-			agent { label 'mvn' }
-			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			}
-		}
+		
 	stage('Push') {
 		agent { label 'mvn' }
 

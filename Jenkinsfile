@@ -24,7 +24,7 @@ pipeline {
 			agent { label 'mvn' }
 	
             steps {
-            sh 'docker tag tomcat:ver1.1 ruhanrs/myubuntu1:1.2'
+            sh 'docker tag tomcat:ver1.1 ruhanrs/myubuntu:1.2'
                 sh 'docker push ruhanrs/myubuntu:1.2'
          }
 	 }

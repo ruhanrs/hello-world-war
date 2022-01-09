@@ -3,5 +3,5 @@ WORKDIR /mbuild
 COPY . .
 RUN mvn clean package
 
-FROM ruhanrs/myrepo:1.0
+FROM tomcat:8.5.43-jdk8
 COPY --from=maven_build /mbuild/target/* /usr/local/tomcat/webapps/

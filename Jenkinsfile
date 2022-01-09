@@ -2,24 +2,20 @@ pipeline {
 	agent { label 'mvn' }
     stages {
 	    
-       stage('checkout1') {
+       stage('pull') {
             steps {
                 sh 'sudo rm -rf hello-world-war'
 	sh 'git clone https://github.com/ruhanrs/hello-world-war.git'	
               }
         }
-	 stage('build') {
+	 stage('tom-instal') {
 	
             steps {
                 dir('hello-world-war'){
-                  sh 'pwd'
-                sh 'ls'
-            
                 sh 'docker build -t tomcat:ver1.1 .'  
                 }
               
-                
-            }
+             }
 	 }
 	 stage('deploy'){
 	     steps{

@@ -24,15 +24,15 @@ pipeline {
 			agent { label 'mvn' }
 	
             steps {
-            sh 'docker tag tomcat:ver1.1 ruhanrs/myubuntu:1.2'
-                sh 'docker push ruhanrs/myubuntu:1.2'
+            sh 'docker tag tomcat:ver1.1 ruhanrs/myubuntu:latest'
+                sh 'docker push ruhanrs/myubuntu:latest'
          }
 	 }
 	 stage('deploy'){
 		 agent { label 'mvn2' }
 	     steps{
 	        sh 'docker rm -f mytomcat'
-	         sh 'docker run -d --name mytomcat -p 7777:8080 ruhanrs/myubuntu:1.2'
+	         sh 'docker run -d --name mytomcat -p 7777:8080 ruhanrs/myubuntu:latest'
 	     }
 	 }
     }

@@ -3,5 +3,5 @@ WORKDIR /mbuild
 COPY . .
 RUN mvn clean package
 
-FROM ruhanrs/myubuntu:1.2
+FROM ruhanrs/myubuntu:latest
 COPY --from=maven_build /mbuild/target/* /usr/local/tomcat/webapps/

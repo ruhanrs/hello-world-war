@@ -14,9 +14,11 @@ pipeline {
 	
             steps {
                 dir('hello-world-war'){
-                  
+                  sh 'pwd'
+                sh 'ls'
             
                 sh 'docker build -t tomcat:ver1.1 .'  
+			
                 }
 	    }
 	 }
@@ -24,16 +26,19 @@ pipeline {
 			agent { label 'mvn' }
 	
             steps {
-            sh 'docker tag tomcat:ver1.1 ruhanrs/myubuntu:2.0'
-                sh 'docker push ruhanrs/myubuntu:2.0'
+		    sh 'ls'
+            sh 'docker tag tomcat:ver1.1 ruhanrs/myubuntu:1.0'
+		    sh 'docker images'
+                sh 'docker push ruhanrs/myubuntu:1.0'
          }
 	 }
-	 stage('deploy'){
+		 stage('deploy'){
 		 agent { label 'mvn2' }
 	     steps{
 	        sh 'docker rm -f mytomcat'
-	         sh 'docker run -d --name mytomcat -p 7777:8080 ruhanrs/myubuntu:2.0'
+	         sh 'docker run -d --name mytomcat -p 7777:8080 ruhanrs/myubuntu:1.0'
 	     }
 	 }
+	
     }
 }

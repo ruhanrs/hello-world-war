@@ -41,8 +41,8 @@ agent  { label 'mvn' }
  agent  { label 'mvn' }
 
 			steps {
-			    sh 'docker tag tomcat:1.0 ruhanrs/myrepo:1.2'
-				sh 'docker push ruhanrs/myrepo:1.2'
+			    sh 'docker tag tomcat:1.0 ruhanrs/myrepo:1.3'
+				sh 'docker push ruhanrs/myrepo:1.3'
 			}
 		}
 
@@ -50,7 +50,7 @@ agent  { label 'mvn' }
     agent { label 'mvn2' }
         steps{
             sh 'docker rm -f mytomcat'
-            sh 'docker run -d --name mytomcat -p 7100:8080 ruhanrs/myrepo:1.2'
+            sh 'docker run -d --name mytomcat -p 7100:8080 ruhanrs/myrepo:1.3'
         }
     }
     }
